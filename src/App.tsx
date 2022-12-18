@@ -1,6 +1,6 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
-import "./App.css";
+import "./App.scss";
 import { Provider } from "react-redux";
 import Store from "./redux/store";
 import Login from "./Container/Auth/Login";
