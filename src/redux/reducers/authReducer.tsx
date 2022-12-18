@@ -29,16 +29,16 @@ const AuthReducer = (
       return {
         ...inititalState,
         login: {
-          status: payload.status,
-          data: payload.data,
+          status: API_CONSTANTS.success,
+          data: payload,
         },
       };
     case LOGIN_ERROR:
       return {
         ...inititalState,
         login: {
-          status: payload.status,
-          data: payload.data,
+          status: API_CONSTANTS.error,
+          data: payload,
         },
       };
 
