@@ -4,12 +4,12 @@ import "./App.scss";
 import { Provider } from "react-redux";
 import Store from "./redux/store";
 import Login from "./Container/Auth/Login";
-
+import AppContainer from "./Container/App";
 function App() {
   return (
     <div className="App">
       <Provider store={Store}>
-        <Login />
+        <AppContainer />
       </Provider>
     </div>
   );
