@@ -8,67 +8,74 @@ import {
 import ForotPassword from "../Auth/ForgotPassword";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
-const routes = [
+const allRoutes = [
   {
     name: "Login",
     path: "/login",
+    protected: false,
     component: Login,
-    isProtected: false,
   },
   {
     name: "Forgot Password",
     path: "/forgotpassword",
+    protected: true,
     component: ForotPassword,
-    isProtected: true,
   },
   {
     name: "Register",
     path: "/register",
+    protected: false,
     component: Register,
-    isProtected: false,
   },
 ];
-const PrivateRoutes = (props: any) => {
-  const { component: Component, ...rest } = props;
-  const { path } = rest;
-  console.log(path, "path");
+const PrivateRoute = ({ component: RouteComponent, ...rest }: any) => {
+  //   const { userData } = rest;
+  //   const currentRoute = allRoutes.filter((items) => items.path === rest.path);
   return (
     <Route
       {...rest}
-      render={(routeProps) => <Component {...rest} {...routeProps} />}
-      path={path}
+      render={(routeProps) => <RouteComponent {...routeProps} {...rest} />}
     />
   );
 };
-const PublicRoutes = (props: any) => {
-  const { component: Component, ...rest } = props;
-  const { path } = rest;
-  return (
-    <Route
-      {...rest}
-      render={(routeProps) => <Component {...rest} {...routeProps} />}
-      path={path}
-    />
-  );
+
+const PublicRoute = ({ component: Component, restricted, ...rest }: any) => {
+  return <Route {...rest} render={(props) => <Component {...props} />} />;
 };
+
 const Routes = (props: any) => {
+  console.log(props);
   return (
-    <Router>
-      <Switch>
-        {routes.map((route, index) => {
-          console.log(route.path, "route.path");
-          return (
-            <>
-              {route.isProtected ? (
-                <PrivateRoutes key={index} {...route} {...props} />
+    <>
+      <Router>
+        <Switch>
+          {
+            // props.userData.data ?
+            allRoutes.map((items, i) =>
+              items.protected ? (
+                <PrivateRoute
+                  path={items.path}
+                  component={items.component}
+                  exact
+                  {...props}
+                />
               ) : (
-                <PublicRoutes key={index} {...route} {...props} />
-              )}
-            </>
-          );
-        })}
-      </Switch>
-    </Router>
+                <PublicRoute
+                  path={items.path}
+                  component={items.component}
+                  exact
+                  {...props}
+                />
+              )
+            )
+          }
+          <>
+            <Redirect to={"/login"} exact {...props} />
+            {/* <Route path="" component={<></>} /> */}
+          </>
+        </Switch>
+      </Router>
+    </>
   );
 };
 
