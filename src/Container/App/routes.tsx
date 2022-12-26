@@ -13,6 +13,7 @@ const allRoutes = [
     name: "Login",
     path: "/login",
     protected: false,
+    properties: { ketan: 1 },
     component: Login,
   },
   {
@@ -39,8 +40,18 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }: any) => {
   );
 };
 
-const PublicRoute = ({ component: Component, restricted, ...rest }: any) => {
-  return <Route {...rest} render={(props) => <Component {...props} />} />;
+const PublicRoute = ({
+  component: Component,
+  properties,
+  restricted,
+  ...rest
+}: any) => {
+  return (
+    <Route
+      {...rest}
+      render={(props) => <Component properties={properties} {...props} />}
+    />
+  );
 };
 
 const Routes = (props: any) => {
@@ -57,12 +68,14 @@ const Routes = (props: any) => {
                   path={items.path}
                   component={items.component}
                   exact
+                  properties={items.properties}
                   {...props}
                 />
               ) : (
                 <PublicRoute
                   path={items.path}
                   component={items.component}
+                  properties={items.properties}
                   exact
                   {...props}
                 />

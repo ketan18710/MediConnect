@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../../redux/actions";
 function Login(props: any) {
   const dispatch: any = useDispatch();
+  console.log(props);
   const loginSelector = useSelector((state: any) => state.AuthReducer.login);
   useEffect(() => {
     dispatch(loginAction(1));
