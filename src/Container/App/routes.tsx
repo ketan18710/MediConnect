@@ -5,9 +5,10 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import ForotPassword from "../Auth/ForgotPassword";
-import Login from "../Auth/Login";
-import Register from "../Auth/Register";
+import ForotPassword from "../../Components/Auth/ForgotPassword";
+import Login from "../../Components/Auth/Login";
+import Register from "../../Components/Auth/Register";
+import Dashboard from "../../Components/Dashboard";
 const routes = [
   {
     name: "Login",
@@ -25,6 +26,12 @@ const routes = [
     name: "Register",
     path: "/register",
     component: Register,
+    isProtected: false,
+  },
+  {
+    name: "Dashboard",
+    path: "/dashboard",
+    component: Dashboard,
     isProtected: false,
   },
 ];
