@@ -1,4 +1,4 @@
-import { API_CONSTANTS } from "../../constants/api_constants";
+import { API_CONSTANTS } from "../../utils";
 import { LOGIN_ERROR, LOGIN_LOADING, LOGIN_SUCCESS } from "../constants";
 import { substate } from "./common_interface";
 

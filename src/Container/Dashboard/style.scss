@@ -1,0 +1,12 @@
+.sidebar {
+  .sidebarLink {
+    color: whitesmoke;
+    &:hover {
+      color: #0040ab;
+      transition: 0.2s linear;
+    }
+  }
+  .showUserTooltip {
+    transition: 0.5s linear;
+  }
+}

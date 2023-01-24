@@ -5,28 +5,51 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import ForotPassword from "../Auth/ForgotPassword";
-import Login from "../Auth/Login";
-import Register from "../Auth/Register";
+import { APP_ROUTES } from "../../utils";
+import AuthContainer from "../Auth";
+import Dashboard from "../Dashboard";
+
 const allRoutes = [
   {
-    name: "Login",
-    path: "/login",
+    path: APP_ROUTES.LOGIN,
     protected: false,
     properties: { ketan: 1 },
-    component: Login,
+    component: AuthContainer,
   },
   {
-    name: "Forgot Password",
-    path: "/forgotpassword",
+    path: APP_ROUTES.REGISTER,
     protected: true,
-    component: ForotPassword,
+    component: AuthContainer,
   },
   {
-    name: "Register",
-    path: "/register",
+    path: APP_ROUTES.FORGOT_PASSWORD,
     protected: false,
-    component: Register,
+    component: AuthContainer,
+  },
+  {
+    path: APP_ROUTES.EDIT_PROFILE,
+    protected: false,
+    component: Dashboard,
+  },
+  {
+    path: APP_ROUTES.DASHBOARD,
+    protected: false,
+    component: Dashboard,
+  },
+  {
+    path: APP_ROUTES.PATIENTS,
+    protected: false,
+    component: Dashboard,
+  },
+  {
+    path: APP_ROUTES.PATIENT_DETAILS,
+    protected: false,
+    component: Dashboard,
+  },
+  {
+    path: APP_ROUTES.ADD_NEW_PATIENT,
+    protected: false,
+    component: Dashboard,
   },
 ];
 const PrivateRoute = ({ component: RouteComponent, ...rest }: any) => {
@@ -55,7 +78,6 @@ const PublicRoute = ({
 };
 
 const Routes = (props: any) => {
-  console.log(props);
   return (
     <>
       <Router>
