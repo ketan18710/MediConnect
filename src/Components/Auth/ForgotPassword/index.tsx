@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../../redux/actions";
 import { Button, Input } from "../../Common";
 import { MdLock, MdEmail } from "react-icons/md";
-import { APP_ROUTES } from "../../../utils";
+import { APP_ROUTES, FORGOT_PASSWORD_FORM_CONSTANTS } from "../../../utils";
+import ValidationHelpers from "../../../helpers/validationHelpers";
 function ForotPassword(props: any) {
   const { history } = props;
   const dispatch: any = useDispatch();
@@ -14,6 +15,7 @@ function ForotPassword(props: any) {
     email: "",
     otp: "",
   });
+  const [validationObj, setValidationObj] = useState<any>({});
   const [screen, setScreen] = useState(1);
   useEffect(() => {
     dispatch(loginAction(1));
@@ -27,6 +29,22 @@ function ForotPassword(props: any) {
       [key]: val,
     });
   };
+  const handleSubmitEmail = () => {
+    const validation = ValidationHelpers.handleForgotPasswordValidation(form);
+    setValidationObj(validation);
+    if (validation && !validation[FORGOT_PASSWORD_FORM_CONSTANTS.EMAIL]) {
+      //submit func
+
+      setScreen(2);
+    }
+  };
+  const handleSubmitOtp = () => {
+    // const validation = ValidationHelpers.handleLoginFormValidation(form);
+    // setValidationObj(validation);
+    // if (validation && !validation[FORGOT_PASSWORD_FORM_CONSTANTS.EMAIL]) {
+    //   //submit func
+    // }
+  };
   return (
     <div className="w-full">
       <h2 className="text-2xl text-center text-primaryBlue">Forgot Password</h2>
@@ -37,6 +55,14 @@ function ForotPassword(props: any) {
             iconColor={"grey"}
             type="email"
             label="Enter e-mail to send verification code"
+            hasError={
+              validationObj &&
+              validationObj[FORGOT_PASSWORD_FORM_CONSTANTS.EMAIL]
+            }
+            error={
+              validationObj &&
+              validationObj[FORGOT_PASSWORD_FORM_CONSTANTS.EMAIL]
+            }
             value={form.email}
             onChange={(e: any) => updateForm("email", e.target.value)}
             placeholder="Email"
@@ -59,7 +85,7 @@ function ForotPassword(props: any) {
               text="Send OTP"
               onClick={(e: any) => {
                 e.preventDefault();
-                setScreen(2);
+                handleSubmitEmail();
               }}
               fullRowWidth={true}
             />
@@ -82,7 +108,9 @@ function ForotPassword(props: any) {
             className="text-gray-500 w-full text-base text-center"
           >
             Already have an account,
-            <span className="text-hihlightRed cursor-pointer">&nbsp;Login</span>
+            <span className="text-highlightRed cursor-pointer">
+              &nbsp;Login
+            </span>
           </h3>
         </div>
       </form>

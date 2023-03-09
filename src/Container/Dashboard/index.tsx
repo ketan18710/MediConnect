@@ -3,6 +3,7 @@ import AddPatient from "../../Components/Dashboard/Doctor/AddPatient";
 import PatientDetails from "../../Components/Dashboard/Doctor/PatientDetails";
 import ViewPatients from "../../Components/Dashboard/Doctor/ViewPatients";
 import User from "../../Components/Dashboard/Users/EditUserProfile";
+import Onboarding from "../../Components/Dashboard/Users/Onboarding";
 import { APP_ROUTES } from "../../utils";
 import Sidebar from "./Sidebar";
 const Dashboard = (props: any) => {
@@ -26,6 +27,9 @@ const Dashboard = (props: any) => {
         break;
       case APP_ROUTES.EDIT_PROFILE:
         return <User {...props} />;
+        break;
+      case APP_ROUTES.ONBOARDING:
+        return <Onboarding {...props} />;
         break;
 
       default:

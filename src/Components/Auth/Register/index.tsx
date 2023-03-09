@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../../redux/actions";
 import { Button, Input } from "../../Common";
 import { MdLock, MdEmail } from "react-icons/md";
-import { APP_ROUTES } from "../../../utils";
+import { APP_ROUTES, REGISTER_FORM_CONSTANTS } from "../../../utils";
+import ValidationHelpers from "../../../helpers/validationHelpers";
 function Register(props: any) {
   const { history } = props;
   const dispatch: any = useDispatch();
@@ -14,6 +15,7 @@ function Register(props: any) {
     password: "",
     confirmPassword: "",
   });
+  const [validationObj, setValidationObj] = useState<any>({});
   useEffect(() => {
     dispatch(loginAction(1));
   }, []);
@@ -26,6 +28,19 @@ function Register(props: any) {
       [key]: val,
     });
   };
+  const handleSubmit = () => {
+    const validation = ValidationHelpers.handleRegisterFormValidation(form);
+    setValidationObj(validation);
+    if (
+      validation &&
+      !validation[REGISTER_FORM_CONSTANTS.EMAIL] &&
+      !validation[REGISTER_FORM_CONSTANTS.PASSWORD] &&
+      !validation[REGISTER_FORM_CONSTANTS.CONFIRM_PASSWORD]
+    ) {
+      //submit func
+      history.push(APP_ROUTES.ONBOARDING);
+    }
+  };
   return (
     <div className="w-full">
       <h2 className="text-2xl text-center text-primaryBlue">
@@ -37,6 +52,10 @@ function Register(props: any) {
           iconColor={"grey"}
           type="email"
           label="Email"
+          hasError={
+            validationObj && validationObj[REGISTER_FORM_CONSTANTS.EMAIL]
+          }
+          error={validationObj && validationObj[REGISTER_FORM_CONSTANTS.EMAIL]}
           value={form.email}
           onChange={(e: any) => updateForm("email", e.target.value)}
           placeholder="Email"
@@ -46,6 +65,12 @@ function Register(props: any) {
           iconColor={"grey"}
           type="password"
           label="Password"
+          hasError={
+            validationObj && validationObj[REGISTER_FORM_CONSTANTS.PASSWORD]
+          }
+          error={
+            validationObj && validationObj[REGISTER_FORM_CONSTANTS.PASSWORD]
+          }
           value={form.password}
           onChange={(e: any) => updateForm("password", e.target.value)}
           placeholder="Password"
@@ -55,6 +80,14 @@ function Register(props: any) {
           iconColor={"grey"}
           type="password"
           label="Confirm Password"
+          hasError={
+            validationObj &&
+            validationObj[REGISTER_FORM_CONSTANTS.CONFIRM_PASSWORD]
+          }
+          error={
+            validationObj &&
+            validationObj[REGISTER_FORM_CONSTANTS.CONFIRM_PASSWORD]
+          }
           value={form.confirmPassword}
           onChange={(e: any) => updateForm("confirmPassword", e.target.value)}
           placeholder="Confirm Password"
@@ -64,7 +97,7 @@ function Register(props: any) {
             text="Submit"
             onClick={(e: any) => {
               e.preventDefault();
-              console.log(form);
+              handleSubmit();
             }}
             fullRowWidth={true}
           />
@@ -75,7 +108,9 @@ function Register(props: any) {
             className="text-gray-500 w-full text-base text-center"
           >
             Already have an account,
-            <span className="text-hihlightRed cursor-pointer">&nbsp;Login</span>
+            <span className="text-highlightRed cursor-pointer">
+              &nbsp;Login
+            </span>
           </h3>
         </div>
       </form>

@@ -1,12 +1,12 @@
-const TOKEN = "token";
+import { AUTH_TOKEN } from "../utils";
 
 export const AuthHelpers = {
   isAuthenticated: () => {
-    // return !!localStorage.getItem(TOKEN)
-    return true;
+    return !!localStorage.getItem(AUTH_TOKEN);
   },
-  login: () => {
+  login: (token: string) => {
     // Add api for login
+    localStorage.setItem(AUTH_TOKEN, token);
   },
   signup: () => {
     // addd api for signup
@@ -19,7 +19,7 @@ export const AuthHelpers = {
       } else {
         // redirectToUrl(getAuthRoute());
       }
-      localStorage.removeItem(TOKEN);
+      localStorage.removeItem(AUTH_TOKEN);
     }
   },
 };

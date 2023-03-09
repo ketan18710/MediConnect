@@ -2,6 +2,7 @@ export const APP_ROUTES = {
   LOGIN: "/login",
   REGISTER: "/register",
   FORGOT_PASSWORD: "/forgotpassword",
+  ONBOARDING: "/onboarding",
   HOME: "/",
   DASHBOARD: "/dashboard",
   PATIENTS: "/patients",
@@ -17,3 +18,23 @@ export const API_CONSTANTS = {
   success: 1,
   error: -1,
 };
+
+export const userRoles = {
+  DOCTOR: "doctor",
+  LAB: "lab",
+  PATIENT: "patient",
+};
+
+export const FORM_ERROR_MESSAGES = {
+  REQUIRED_MESSAGE: "Required!",
+  EMPTY_MESSAGE: "Please select a value",
+  INVALID_EMAIL_ADDRESS: "Please enter a valid email address",
+  PASSWORD_CRITERIA: "Password should be of atleast 8 characters",
+  PASSWORD_UNMATCH: "Passwords don't match",
+  INVALID_NAME: "Please enter a valid full name",
+  INVALID_NUMBER: "please enter valid contact number",
+  INVALID_INPUT: "please enter a valid input",
+  INVALID_DOMAIN: "please enter a valid domain",
+};
+
+export const AUTH_TOKEN = "authenticationToken";

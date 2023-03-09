@@ -12,7 +12,7 @@ module.exports = {
         primaryBlue: "#20A4F3",
         actionBlue: "#367BEE",
         highlightBlue: "#1d4ed8",
-        hihlightRed: "rgb(185 ,28, 28)",
+        highlightRed: "rgb(185 ,28, 28)",
         labelGrey: "#374151",
       },
       boxShadow: {

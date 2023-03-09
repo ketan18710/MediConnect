@@ -1,6 +1,11 @@
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
-import { LOGIN_ERROR, LOGIN_LOADING, LOGIN_SUCCESS } from "../constants";
+import {
+  LOGIN_ERROR,
+  LOGIN_LOADING,
+  LOGIN_RESET,
+  LOGIN_SUCCESS,
+} from "../constants";
 import { Auth_Services } from "../services";
 
 // import auth_services from "../services/auth_services";
@@ -19,5 +24,10 @@ export const loginAction = (data: any) => {
       .catch((error: any) => {
         dispatch(defaultDispatchAction(LOGIN_ERROR, error));
       });
+  };
+};
+export const resetLoginAction = () => {
+  return async (dispatch: ThunkDispatch<{}, {}, any>): Promise<void> => {
+    await dispatch(defaultDispatchAction(LOGIN_RESET, {}));
   };
 };

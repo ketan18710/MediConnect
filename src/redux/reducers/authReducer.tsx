@@ -1,5 +1,10 @@
 import { API_CONSTANTS } from "../../utils";
-import { LOGIN_ERROR, LOGIN_LOADING, LOGIN_SUCCESS } from "../constants";
+import {
+  LOGIN_ERROR,
+  LOGIN_LOADING,
+  LOGIN_RESET,
+  LOGIN_SUCCESS,
+} from "../constants";
 import { substate } from "./common_interface";
 
 interface initialStateInterface {
@@ -39,6 +44,14 @@ const AuthReducer = (
         login: {
           status: API_CONSTANTS.error,
           data: payload,
+        },
+      };
+    case LOGIN_RESET:
+      return {
+        ...inititalState,
+        login: {
+          status: API_CONSTANTS.init,
+          data: null,
         },
       };
 
