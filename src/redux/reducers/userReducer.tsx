@@ -1,4 +1,4 @@
-import { API_CONSTANTS } from "../../utils";
+import { API_CONSTANTS, USER_STATE_CONSTANTS } from "../../utils";
 import {
   ADD_PATIENT_ERROR,
   ADD_PATIENT_LOADING,
@@ -11,14 +11,21 @@ import {
   GET_PATIENT_LOADING,
   GET_PATIENT_RESET,
   GET_PATIENT_SUCCESS,
+  GET_TIMESLOTS_ERROR,
+  GET_TIMESLOTS_LOADING,
+  GET_TIMESLOTS_SUCCESS,
   GET_USER_ERROR,
   GET_USER_LOADING,
   GET_USER_SUCCESS,
+  RESET_USER_STATE,
   SET_USER,
   UPDATE_PATIENT_ERROR,
   UPDATE_PATIENT_LOADING,
   UPDATE_PATIENT_RESET,
   UPDATE_PATIENT_SUCCESS,
+  UPDATE_TIMESLOT_ERROR,
+  UPDATE_TIMESLOT_LOADING,
+  UPDATE_TIMESLOT_SUCCESS,
   UPLOAD_DOCUMENT_ERROR,
   UPLOAD_DOCUMENT_LOADING,
   UPLOAD_DOCUMENT_RESET,
@@ -33,6 +40,10 @@ interface initialStateInterface {
   getPatient: substate;
   updatePatient: substate;
   uploadDocument: substate;
+  timeSlots: substate;
+  patientDailyBooking: substate;
+  createBooking: substate;
+  updateTimeslot: substate;
 }
 const initState: initialStateInterface = {
   user: {
@@ -59,10 +70,26 @@ const initState: initialStateInterface = {
     data: null,
     status: null,
   },
+  timeSlots: {
+    data: null,
+    status: null,
+  },
+  createBooking: {
+    data: null,
+    status: null,
+  },
+  patientDailyBooking: {
+    data: null,
+    status: null,
+  },
+  updateTimeslot: {
+    data: null,
+    status: null,
+  },
 };
 const UserReducer = (
   inititalState = initState,
-  { type, payload }: { type: string; payload: substate }
+  { type, payload }: { type: string; payload: any }
 ) => {
   switch (type) {
     case GET_USER_LOADING:
@@ -250,6 +277,64 @@ const UserReducer = (
         uploadDocument: {
           status: API_CONSTANTS.init,
           data: payload,
+        },
+      };
+
+    case GET_TIMESLOTS_LOADING:
+      return {
+        ...inititalState,
+        timeSlots: {
+          status: API_CONSTANTS.loading,
+        },
+      };
+
+    case GET_TIMESLOTS_SUCCESS:
+      return {
+        ...inititalState,
+        timeSlots: {
+          status: API_CONSTANTS.success,
+          data: payload,
+        },
+      };
+    case GET_TIMESLOTS_ERROR:
+      return {
+        ...inititalState,
+        timeSlots: {
+          status: API_CONSTANTS.error,
+          data: payload,
+        },
+      };
+    case UPDATE_TIMESLOT_LOADING:
+      return {
+        ...inititalState,
+        updateTimeslot: {
+          status: API_CONSTANTS.loading,
+        },
+      };
+
+    case UPDATE_TIMESLOT_SUCCESS:
+      return {
+        ...inititalState,
+        updateTimeslot: {
+          status: API_CONSTANTS.success,
+          data: payload,
+        },
+      };
+    case UPDATE_TIMESLOT_ERROR:
+      return {
+        ...inititalState,
+        updateTimeslot: {
+          status: API_CONSTANTS.error,
+          data: payload,
+        },
+      };
+
+    case RESET_USER_STATE:
+      return {
+        ...inititalState,
+        [payload]: {
+          status: API_CONSTANTS.init,
+          data: null,
         },
       };
 

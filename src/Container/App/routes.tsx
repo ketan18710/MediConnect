@@ -60,6 +60,11 @@ const allRoutes = [
     protected: true,
     component: Dashboard,
   },
+  {
+    path: APP_ROUTES.CALENDER,
+    protected: true,
+    component: Dashboard,
+  },
 ];
 const PrivateRoute = ({ component: RouteComponent, ...rest }: any) => {
   console.log(rest, "rest");

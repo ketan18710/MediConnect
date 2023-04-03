@@ -8,10 +8,17 @@ import {
   GET_PATIENTS_ERROR,
   GET_PATIENTS_LOADING,
   GET_PATIENTS_SUCCESS,
+  GET_TIMESLOTS_ERROR,
+  GET_TIMESLOTS_LOADING,
+  GET_TIMESLOTS_SUCCESS,
   GET_USER_ERROR,
   GET_USER_LOADING,
   GET_USER_SUCCESS,
+  RESET_USER_STATE,
   SET_USER,
+  UPDATE_TIMESLOT_ERROR,
+  UPDATE_TIMESLOT_LOADING,
+  UPDATE_TIMESLOT_SUCCESS,
   UPLOAD_DOCUMENT_ERROR,
   UPLOAD_DOCUMENT_LOADING,
   UPLOAD_DOCUMENT_SUCCESS,
@@ -81,9 +88,46 @@ export const uploadDocument = (data: any) => {
       });
   };
 };
+export const getTimeSlots = (data: any) => {
+  return async (dispatch: ThunkDispatch<{}, {}, any>): Promise<void> => {
+    await dispatch(defaultDispatchAction(GET_TIMESLOTS_LOADING, data));
+    await User_Services.getTimeSlots(data)
+      .then((result: any) => {
+        if (result.statusCode === 200) {
+          dispatch(defaultDispatchAction(GET_TIMESLOTS_SUCCESS, result));
+        } else {
+          dispatch(defaultDispatchAction(GET_TIMESLOTS_ERROR, result.error));
+        }
+      })
+      .catch((error: any) => {
+        dispatch(defaultDispatchAction(GET_TIMESLOTS_ERROR, error));
+      });
+  };
+};
+export const updateTimeslot = (data: any) => {
+  return async (dispatch: ThunkDispatch<{}, {}, any>): Promise<void> => {
+    await dispatch(defaultDispatchAction(UPDATE_TIMESLOT_LOADING, data));
+    await User_Services.updateTimeslot(data)
+      .then((result: any) => {
+        if (result.statusCode === 200) {
+          dispatch(defaultDispatchAction(UPDATE_TIMESLOT_SUCCESS, result));
+        } else {
+          dispatch(defaultDispatchAction(UPDATE_TIMESLOT_ERROR, result.error));
+        }
+      })
+      .catch((error: any) => {
+        dispatch(defaultDispatchAction(UPDATE_TIMESLOT_ERROR, error));
+      });
+  };
+};
 
 export const resetAddPatientAction = () => {
   return async (dispatch: ThunkDispatch<{}, {}, any>): Promise<void> => {
     await dispatch(defaultDispatchAction(ADD_PATIENT_RESET, {}));
+  };
+};
+export const resetUserState = (state: any) => {
+  return async (dispatch: ThunkDispatch<{}, {}, any>): Promise<void> => {
+    await dispatch(defaultDispatchAction(RESET_USER_STATE, state));
   };
 };

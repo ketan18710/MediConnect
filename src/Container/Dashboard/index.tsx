@@ -1,4 +1,5 @@
 import React from "react";
+import Calendar from "../../Components/Common/Calender";
 import AddPatient from "../../Components/Dashboard/Doctor/AddPatient";
 import PatientDetails from "../../Components/Dashboard/Doctor/PatientDetails";
 import ViewPatients from "../../Components/Dashboard/Doctor/ViewPatients";
@@ -30,6 +31,9 @@ const Dashboard = (props: any) => {
         break;
       case APP_ROUTES.ONBOARDING:
         return <Onboarding {...props} />;
+        break;
+      case APP_ROUTES.CALENDER:
+        return <Calendar doctor_id={1} {...props} />;
         break;
 
       default:

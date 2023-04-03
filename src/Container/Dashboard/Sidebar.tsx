@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaReact, FaHome, FaUser } from "react-icons/fa";
+import { FaReact, FaHome, FaUser, FaCalendarAlt } from "react-icons/fa";
 import { AiFillSetting } from "react-icons/ai";
 import "./style.scss";
 import { APP_ROUTES } from "../../utils";
@@ -44,6 +44,14 @@ const Sidebar = (props: any) => {
           size="1.5em"
           title="Home"
         />
+        {role === "doctor" && (
+          <FaCalendarAlt
+            className="my-3 cursor-pointer sidebarLink"
+            size="1.5em"
+            title="Calender"
+            onClick={() => redirectToUrl(APP_ROUTES.CALENDER)}
+          />
+        )}
         {/* <FaUser
           onClick={() => redirectToUrl(APP_ROUTES.PATIENTS)}
           className="my-10 cursor-pointer sidebarLink"

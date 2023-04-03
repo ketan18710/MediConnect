@@ -40,28 +40,28 @@ function Login(props: any) {
   useEffect(() => {
     // console.log(loginSelector, "loginSelector");
     if (loginSelector.status === API_CONSTANTS.success) {
-      AuthHelpers.login(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTY3NjY1NzYyNiwiZXhwIjoxNjc2NzQ0MDI2fQ.sfgxJfUBnIj-7jM5_z2_gmViyMufLzOfa41bqvayGls"
-      );
-      let arr = JSON.parse(
-        localStorage.getItem("users") ||
-          JSON.stringify([
-            {
-              id: 3,
-              email: "patient@gmail.com",
-              role: "patient",
-              phone: 9999222214,
-              createdAt: "",
-              updatedAt: "",
-              last_login: "",
-              onboarding: true,
-            },
-          ])
-      );
-      let data = arr.find((item: any) => item.email === form.email);
-      if (!data) {
-        data = arr[0];
-      }
+      const data = loginSelector.data.user;
+      data.role = "doctor";
+      AuthHelpers.login(loginSelector.data.token);
+      // let arr = JSON.parse(
+      //   localStorage.getItem("users") ||
+      //     JSON.stringify([
+      //       {
+      //         id: 3,
+      //         email: "patient@gmail.com",
+      //         role: "patient",
+      //         phone: 9999222214,
+      //         createdAt: "",
+      //         updatedAt: "",
+      //         last_login: "",
+      //         onboarding: true,
+      //       },
+      //     ])
+      // );
+      // let data = arr.find((item: any) => item.email === form.email);
+      // if (!data) {
+      //   data = arr[0];
+      // }
       dispatch(setUserAction(data));
       dispatch(resetLoginAction());
       toast.success("Logged in successfully");

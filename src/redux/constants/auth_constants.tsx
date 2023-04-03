@@ -27,3 +27,12 @@ export const UPLOAD_DOCUMENT_SUCCESS: string =
 export const UPLOAD_DOCUMENT_ERROR: string = "app/user/UPLOAD_DOCUMENT_ERROR";
 export const UPLOAD_DOCUMENT_RESET: string = "app/user/UPLOAD_DOCUMENT_RESET";
 export const SET_USER: string = "app/user/SET_USER";
+export const RESET_USER_STATE: string = "app/user/RESET_USER_STATE";
+export const GET_TIMESLOTS_LOADING: string = "app/user/GET_TIMESLOTS_LOADING";
+export const GET_TIMESLOTS_SUCCESS: string = "app/user/GET_TIMESLOTS_SUCCESS";
+export const GET_TIMESLOTS_ERROR: string = "app/user/GET_TIMESLOTS_ERROR";
+export const UPDATE_TIMESLOT_LOADING: string =
+  "app/user/UPDATE_TIMESLOT_LOADING";
+export const UPDATE_TIMESLOT_SUCCESS: string =
+  "app/user/UPDATE_TIMESLOT_SUCCESS";
+export const UPDATE_TIMESLOT_ERROR: string = "app/user/UPDATE_TIMESLOT_ERROR";
