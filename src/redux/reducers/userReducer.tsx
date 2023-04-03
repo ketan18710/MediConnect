@@ -4,6 +4,9 @@ import {
   ADD_PATIENT_LOADING,
   ADD_PATIENT_RESET,
   ADD_PATIENT_SUCCESS,
+  CREATE_BOOKING_ERROR,
+  CREATE_BOOKING_LOADING,
+  CREATE_BOOKING_SUCCESS,
   GET_PATIENTS_ERROR,
   GET_PATIENTS_LOADING,
   GET_PATIENTS_SUCCESS,
@@ -324,6 +327,30 @@ const UserReducer = (
       return {
         ...inititalState,
         updateTimeslot: {
+          status: API_CONSTANTS.error,
+          data: payload,
+        },
+      };
+    case CREATE_BOOKING_LOADING:
+      return {
+        ...inititalState,
+        createBooking: {
+          status: API_CONSTANTS.loading,
+        },
+      };
+
+    case CREATE_BOOKING_SUCCESS:
+      return {
+        ...inititalState,
+        createBooking: {
+          status: API_CONSTANTS.success,
+          data: payload,
+        },
+      };
+    case CREATE_BOOKING_ERROR:
+      return {
+        ...inititalState,
+        createBooking: {
           status: API_CONSTANTS.error,
           data: payload,
         },

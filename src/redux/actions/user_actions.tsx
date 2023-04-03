@@ -94,7 +94,7 @@ export const getTimeSlots = (data: any) => {
     await User_Services.getTimeSlots(data)
       .then((result: any) => {
         if (result.statusCode === 200) {
-          dispatch(defaultDispatchAction(GET_TIMESLOTS_SUCCESS, result));
+          dispatch(defaultDispatchAction(GET_TIMESLOTS_SUCCESS, result.data));
         } else {
           dispatch(defaultDispatchAction(GET_TIMESLOTS_ERROR, result.error));
         }
@@ -110,7 +110,7 @@ export const updateTimeslot = (data: any) => {
     await User_Services.updateTimeslot(data)
       .then((result: any) => {
         if (result.statusCode === 200) {
-          dispatch(defaultDispatchAction(UPDATE_TIMESLOT_SUCCESS, result));
+          dispatch(defaultDispatchAction(UPDATE_TIMESLOT_SUCCESS, result.data));
         } else {
           dispatch(defaultDispatchAction(UPDATE_TIMESLOT_ERROR, result.error));
         }

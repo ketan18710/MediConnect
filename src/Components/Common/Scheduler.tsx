@@ -28,6 +28,10 @@ function Scheduler({
   const timeSlotsSelector = useSelector(
     (state: any) => state.UserReducer.timeSlots
   );
+  const updateTimeslotSelector = useSelector(
+    (state: any) => state.UserReducer.updateTimeslot
+  );
+  console.log(updateTimeslotSelector);
   const user = userSelector?.data;
   const role = user?.role;
   const [slots, setSlots] = useState<any[]>([]);
@@ -36,13 +40,15 @@ function Scheduler({
   const onSlotClickHandler = (index: number) => {
     if (role === userRoles.DOCTOR) {
       if (slots[index].status === timeSlotsStatus.UNAVAILABLE) {
-        const tempSlots = [...slots];
-        tempSlots[index].status = timeSlotsStatus.OPEN;
-        setSlots([...tempSlots]);
+        updateTimeslotFunc(slots[index], timeSlotsStatus.OPEN, index);
       } else if (slots[index].status === timeSlotsStatus.OPEN) {
-        const tempSlots = [...slots];
-        tempSlots[index].status = timeSlotsStatus.UNAVAILABLE;
-        setSlots([...tempSlots]);
+        updateTimeslotFunc(slots[index], timeSlotsStatus.UNAVAILABLE, index);
+      }
+    } else if (role === userRoles.PATIENT) {
+      if (slots[index].status === timeSlotsStatus.BOOKED) {
+        return;
+      } else if (slots[index].status === timeSlotsStatus.OPEN) {
+        updateTimeslotFunc(slots[index], timeSlotsStatus.BOOKED, index);
       }
     }
   };
@@ -65,14 +71,16 @@ function Scheduler({
       dispatch(resetUserState(USER_STATE_CONSTANTS.TIMESLOTS));
     };
   }, []);
-  const updateTimeslotFunc = (slot: any, status: number) => {
+  const updateTimeslotFunc = (slot: any, status: number, index: number) => {
+    // debugger
     const obj: any = {
       doctor_id,
       month: currentMonth,
       day: getDayFromTimeStamp(selectedDate),
       year: currentYear,
-      slot: slot.timeSlot,
+      slot: slot.timeSlot.split(" ")[0],
       status,
+      index,
     };
     if (role && role === userRoles.PATIENT) {
       obj.patient_id = patient_id;
@@ -83,15 +91,32 @@ function Scheduler({
     if (timeSlotsSelector.status === API_CONSTANTS.success) {
       setLoading(false);
       let data = timeSlotsSelector.data;
-
-      data = data.filter(
-        (item: any) => item.day === getDayFromTimeStamp(selectedDate)
-      );
+      if (role === userRoles.PATIENT) {
+        data = data.filter(
+          (slot: any) => slot.status !== timeSlotsStatus.UNAVAILABLE
+        );
+      }
       setSlots(data);
     } else if (timeSlotsSelector.status === API_CONSTANTS.error) {
       setLoading(false);
     }
   }, [timeSlotsSelector]);
+  useEffect(() => {
+    if (updateTimeslotSelector.status === API_CONSTANTS.success) {
+      setLoading(false);
+      let { index, ...data } = updateTimeslotSelector.data;
+      setSlots(
+        slots.map((slot, slotIndex) => {
+          if (slotIndex === index) {
+            slot.status = data.status;
+          }
+          return slot;
+        })
+      );
+    } else if (updateTimeslotSelector.status === API_CONSTANTS.error) {
+      setLoading(false);
+    }
+  }, [updateTimeslotSelector]);
 
   return (
     <div className="scheduler">

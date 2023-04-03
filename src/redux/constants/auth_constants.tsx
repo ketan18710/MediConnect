@@ -36,3 +36,6 @@ export const UPDATE_TIMESLOT_LOADING: string =
 export const UPDATE_TIMESLOT_SUCCESS: string =
   "app/user/UPDATE_TIMESLOT_SUCCESS";
 export const UPDATE_TIMESLOT_ERROR: string = "app/user/UPDATE_TIMESLOT_ERROR";
+export const CREATE_BOOKING_LOADING: string = "app/user/CREATE_BOOKING_LOADING";
+export const CREATE_BOOKING_SUCCESS: string = "app/user/CREATE_BOOKING_SUCCESS";
+export const CREATE_BOOKING_ERROR: string = "app/user/CREATE_BOOKING_ERROR";

@@ -64,9 +64,29 @@ export const User_Services = {
     res.statusCode = 200;
     return res;
   },
-  updateTimeslot: async (data: any) => {
+  updateTimeslot: async ({ index, ...data }: any) => {
+    // const {}
+    // debugger;
     const options = {
       method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdCIsIm9yZ2FuaXNhdGlvbiI6IkstTGlmZSIsImRldmVsb3BlciI6IkthbmF2IiwiY29tcGFueSI6Ikxvb3BlZCBpbiBDb2RlIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc3NzgxMzM5LCJleHAiOjE2Nzc4Mzg5Mzl9.ybA8xhqJfASMJYLvJj4PPUSETh2FNQw3xo5UIKpeyeQ`,
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    };
+    const res = await request(
+      `http://localhost:3000/api/calendary/doctor/update`,
+      options
+    );
+    res.data = data;
+    res.data.index = index;
+    res.statusCode = 200;
+    return res;
+  },
+  createBooking: async (data: any) => {
+    const options = {
+      method: "POST",
       headers: {
         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdCIsIm9yZ2FuaXNhdGlvbiI6IkstTGlmZSIsImRldmVsb3BlciI6IkthbmF2IiwiY29tcGFueSI6Ikxvb3BlZCBpbiBDb2RlIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc3NzgxMzM5LCJleHAiOjE2Nzc4Mzg5Mzl9.ybA8xhqJfASMJYLvJj4PPUSETh2FNQw3xo5UIKpeyeQ`,
         // "Content-type": "application/json; charset=UTF-8",
